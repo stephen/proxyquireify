@@ -41,7 +41,7 @@ function reset() {
   module.exports._cache = null;
 }
 
-var proxyquire = module.exports = function (require_, manuallyCache_) {
+var proxyquire = module.exports = function (require_, manuallyCache_, clearCache_) {
   if (typeof require_ != 'function')
     throw new ProxyquireifyError(
         'It seems like you didn\'t initialize proxyquireify with the require in your test.\n'
@@ -49,6 +49,7 @@ var proxyquire = module.exports = function (require_, manuallyCache_) {
     );
 
   reset();
+  proxyquire._clearCacheRequest = clearCache_;
 
   var fn = function(request, stubs) {
 
